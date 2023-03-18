@@ -1,14 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TaskWrapper } from "./TaskElements";
+import { Draggable } from "react-beautiful-dnd";
 
-const Task = ({ title, date, priority, tag }) => {
+const Task = ({ priority, tag, task, index }) => {
+  // Enable D&D in React 18 Strict Mode
+  const [enabled, setEnabled] = useState(false);
+  useEffect(() => {
+    const animation = requestAnimationFrame(() => setEnabled(true));
+
+    return () => {
+      cancelAnimationFrame(animation);
+      setEnabled(false);
+    };
+  }, []);
+
+  if (!enabled) {
+    return null;
+  }
   return (
-    <TaskWrapper>
-      <h1>{title}</h1>
-      <p>{date}</p>
-      {priority}
-      {tag}
-    </TaskWrapper>
+    <Draggable draggableId={task.id} index={index}>
+      {(provided) => (
+        <TaskWrapper
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+        >
+          {task.content}
+        </TaskWrapper>
+      )}
+    </Draggable>
   );
 };
 

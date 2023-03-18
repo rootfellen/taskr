@@ -17,6 +17,8 @@ export const StageInfo = styled.div`
   padding: 0rem 1rem 1rem 1rem;
 `;
 
+export const TaskList = styled.ul``;
+
 export const StageTitle = styled.div`
   display: flex;
   align-items: center;
