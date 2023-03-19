@@ -26,7 +26,7 @@ const Board = () => {
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
-    // if no destination do nothing
+    // if no destination = do nothing
     if (!destination) {
       return;
     }
@@ -38,23 +38,53 @@ const Board = () => {
     ) {
       return;
     }
-    const column = tasks.columns[source.droppableId];
-    const newTaskIds = Array.from(column.taskIds);
-    newTaskIds.splice(source.index, 1);
-    newTaskIds.splice(destination.index, 0, draggableId);
-    const newColumn = {
-      ...column,
-      taskIds: newTaskIds,
+    const start = tasks.columns[source.droppableId];
+    const finish = tasks.columns[destination.droppableId];
+    if (start === finish) {
+      const newTaskIds = Array.from(start.taskIds);
+      newTaskIds.splice(source.index, 1);
+      newTaskIds.splice(destination.index, 0, draggableId);
+
+      const newColumn = {
+        ...start,
+        taskIds: newTaskIds,
+      };
+      const newState = {
+        ...tasks,
+        columns: {
+          ...tasks.columns,
+          [newColumn.id]: newColumn,
+        },
+      };
+      setTasks(newState);
+      return;
+    }
+
+    // Moving from one stage to another
+
+    const startTaskIds = Array.from(start.taskIds);
+    startTaskIds.splice(source.index, 1);
+    const newStart = {
+      ...start,
+      taskIds: startTaskIds,
+    };
+    const finishTaskIds = Array.from(finish.taskIds);
+    finishTaskIds.splice(destination.index, 0, draggableId);
+    const newFinish = {
+      ...finish,
+      taskIds: finishTaskIds,
     };
     const newState = {
       ...tasks,
       columns: {
         ...tasks.columns,
-        [newColumn.id]: newColumn,
+        [newStart.id]: newStart,
+        [newFinish.id]: newFinish,
       },
     };
     setTasks(newState);
   };
+
   return (
     <>
       <Hero>

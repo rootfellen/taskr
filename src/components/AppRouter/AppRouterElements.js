@@ -13,3 +13,11 @@ export const MainSection = styled.main`
   padding: 2rem;
   gap: 2rem;
 `;
+export const AppWrapper = styled.div`
+  width: 100%;
+  background-color: #f4f7fc;
+  border-radius: 25px;
+  overflow: hidden;
+  display: flex;
+  flex: 1;
+`;

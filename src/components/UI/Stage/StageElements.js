@@ -17,7 +17,10 @@ export const StageInfo = styled.div`
   padding: 0rem 1rem 1rem 1rem;
 `;
 
-export const TaskList = styled.ul``;
+export const TaskList = styled.ul`
+  background-color: ${(props) =>
+    props.isDraggingOver ? "lightyellow" : "#fff"};
+`;
 
 export const StageTitle = styled.div`
   display: flex;

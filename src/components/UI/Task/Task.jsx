@@ -19,11 +19,12 @@ const Task = ({ priority, tag, task, index }) => {
   }
   return (
     <Draggable draggableId={task.id} index={index}>
-      {(provided) => (
+      {(provided, snapshot) => (
         <TaskWrapper
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
+          isDragging={snapshot.isDragging}
         >
           {task.content}
         </TaskWrapper>
