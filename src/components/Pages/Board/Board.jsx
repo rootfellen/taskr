@@ -1,11 +1,68 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Hero from "../../UI/Hero/Hero";
 import Stage from "../../UI/Stage/Stage";
 import { StagesWrapper, AddStageButton } from "./BoardElements";
 import Task from "../../UI/Task/Task";
+import { nanoid } from "nanoid";
 import { DragDropContext } from "react-beautiful-dnd";
 import initialData from "../../../utils/tasks";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  doc,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
+import { Context } from "../../../App";
 const Board = () => {
+  // HANDLING COLLECTION FIREBASE
+
+  const { database } = useContext(Context);
+  const collectionRef = collection(database, "tasks");
+
+  // ADD TASKS
+
+  const handleAddTask = () => {
+    addDoc(collectionRef, {
+      id: nanoid(),
+      title: "Task",
+      text: "This is the task content",
+    }).then(() => alert("Data was added"));
+  };
+
+  //  READ TASKS
+
+  const handleGetTask = () => {
+    getDocs(collectionRef).then((res) =>
+      console.log(
+        res.docs.map((item) => {
+          return item.data();
+        })
+      )
+    );
+  };
+
+  // UPDATE TASKS
+
+  const handleUpdateTask = () => {
+    const taskToUpdate = doc(database, "tasks", "mj5RKyxD5JTvYtXJdnzv");
+    updateDoc(taskToUpdate, {
+      text: "Updated task text",
+      title: "Updated Task",
+    }).then(() => alert("Data was updated"));
+  };
+
+  // DELETE TASK
+  const handleDeleteTask = () => {
+    const taskToDelete = doc(database, "tasks", "mj5RKyxD5JTvYtXJdnzv");
+    deleteDoc(taskToDelete, {
+      text: "Updated task text",
+      title: "Updated Task",
+    }).then(() => alert("Data was deleted"));
+  };
+
+  // DRANG & DROP
   const [tasks, setTasks] = useState(initialData);
   const [amount, setAmount] = useState({
     todo: 0,
@@ -93,7 +150,15 @@ const Board = () => {
             {tasks.columnOrder.map((columnId) => {
               const column = tasks.columns[columnId];
               const items = column.taskIds.map((taskId) => tasks.tasks[taskId]);
-              return <Stage key={column.id} column={column} tasks={items} />;
+              return (
+                <Stage
+                  key={column.id}
+                  column={column}
+                  tasks={items}
+                  type={column.type}
+                  amount={column.taskIds.length}
+                />
+              );
             })}
           </DragDropContext>
 

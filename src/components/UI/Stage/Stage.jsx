@@ -10,7 +10,7 @@ import {
 import Task from "../Task/Task";
 import { Droppable } from "react-beautiful-dnd";
 
-const Stage = ({ priority, type, column, tasks }) => {
+const Stage = ({ priority, type, column, tasks, amount }) => {
   // Enable D&D in React 18 Strict Mode
   const [enabled, setEnabled] = useState(false);
   useEffect(() => {
@@ -30,7 +30,7 @@ const Stage = ({ priority, type, column, tasks }) => {
       <StageInfo>
         <StageTitle>
           {column.title}
-          <Amount color={type}>({0})</Amount>
+          <Amount color={type}>({amount})</Amount>
         </StageTitle>
         <AddTaskBtn color={type}>+</AddTaskBtn>
       </StageInfo>

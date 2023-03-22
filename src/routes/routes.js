@@ -24,10 +24,6 @@ export const publicRoutes = [
     path: LOGIN_ROUTE,
     element: Login,
   },
-  {
-    path: BOARD_ROUTE,
-    element: Board,
-  },
 ];
 
 // PRIVATE ROUTES (routes which are available for authorized users only)

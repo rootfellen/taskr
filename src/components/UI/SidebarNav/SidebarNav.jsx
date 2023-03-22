@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   NavList,
   NavListItem,
@@ -26,10 +26,12 @@ import MediumPriorityTag from "../../../assets/icons/tags/medium.svg";
 import LowPriorityTag from "../../../assets/icons/tags/low.svg";
 import dropDownIcon from "../../../assets/icons/chevron.svg";
 import boardItemIcon from "../../../assets/icons/boardItem.svg";
+import { Context } from "../../../App";
 
 const SidebarNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [tagsOpen, setTagsOpen] = useState(false);
+  const { auth } = useContext(Context);
 
   const toggleDropdown = () => {
     setIsOpen((prevState) => !prevState);
@@ -39,6 +41,9 @@ const SidebarNav = () => {
     setTagsOpen((prevState) => !prevState);
   };
 
+  const signOutHandler = () => {
+    auth.signOut();
+  };
   return (
     <NavWrapper>
       <NavList>
@@ -206,7 +211,7 @@ const SidebarNav = () => {
             )
           }
         </NavLinkItem>
-        <NavLinkItem to="/logout">
+        <NavLinkItem to="/" onClick={signOutHandler}>
           {({ isActive }) =>
             isActive ? (
               <NavListItemActive>
