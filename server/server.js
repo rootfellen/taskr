@@ -8,6 +8,7 @@ import { errorHandler } from "./middleware/errorHandler.js";
 import { credentials } from "./middleware/credentials.js";
 import mongoose from "mongoose";
 import connectDB from "./config/db.js";
+import router from "./router/root.js";
 
 // Working with env files
 dotenv.config();
@@ -40,6 +41,8 @@ app.get("/", (req, res) => {
 });
 
 // Routes
+
+app.use("/", router);
 
 // custom error handler middleware
 app.use(errorHandler);

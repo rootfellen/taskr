@@ -6,3 +6,5 @@
 20230601	14:42:17	86f86cc6-9d52-4d3f-b871-6c97c5d789b5	GET	https://www.google.com	/
 20230601	14:42:44	bffc5ecc-db70-41c6-a7ae-cd8c38bd295b	GET	undefined	/
 20230601	15:18:12	65c3f778-4eef-4990-8c22-6861548f2d0e	GET	undefined	/
+20230601	20:15:48	f61c7b93-b9fe-4ec9-8871-74e1745818d6	POST	undefined	/register
+20230601	20:18:03	08e727b7-5b3c-4535-9064-37f74accf0f1	POST	undefined	/register

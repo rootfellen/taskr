@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { body, validationResult } from "express-validator";
-import User from "../../models/User";
+import User from "../../models/User.js";
 
 class UserController {
   async registration(req, res, next) {
@@ -37,6 +37,7 @@ class UserController {
       //create and store the new user
       const result = await User.create({
         email: email,
+        username: name,
         password: hashedPassword,
       });
 
