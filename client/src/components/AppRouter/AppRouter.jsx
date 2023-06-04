@@ -19,7 +19,7 @@ import { LOGIN_ROUTE } from "../../utils/consts.js";
 import Loader from "../../components/UI/Loader/Loader.jsx";
 
 const AppRouter = () => {
-  const user = true;
+  const user = false;
 
   return (
     <>
