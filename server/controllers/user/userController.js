@@ -136,7 +136,10 @@ class UserController {
   }
   async refresh(req, res, next) {
     try {
-    } catch (error) {}
+    } catch (error) {
+      throw error;
+      console.log(error);
+    }
   }
 }
 
